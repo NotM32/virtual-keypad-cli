@@ -5,6 +5,7 @@ import (
 	"os"
 
 	query "github.com/NotM32/godmp/queries"
+	"github.com/NotM32/godmp/cmd"
 )
 
 var (
@@ -23,6 +24,9 @@ func main() {
 	}
 
 	authToken := query.LoginAuthenticate(email, password, gqlConfig.Extensions.Endpoints.Default.Url)
+
+	cmd.Execute()
+
 	doors := query.GetDoors(authToken, userCode, panel, panelSecondary)
 	doors[2].Access()
 }
