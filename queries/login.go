@@ -26,9 +26,9 @@ func LoginAuthenticate(email string, password string, endpoint string) string {
 	client := graphql.NewClient(endpoint, nil)
 
 	variables := map[string]interface{}{
-		"email":             email,
-		"PW":                password,
-		"forceSendToEmail":  false,
+		"email":            email,
+		"PW":               password,
+		"forceSendToEmail": false,
 	}
 
 	var mutation LoginAuthenticateMutation

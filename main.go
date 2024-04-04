@@ -8,13 +8,12 @@ import (
 )
 
 var (
-	email = os.Getenv("DMP_EMAIL")
-	password = os.Getenv("DMP_PASSWORD")
-	userCode = os.Getenv("DMP_PASSCODE")
-	panel = os.Getenv("DMP_PANEL")
+	email          = os.Getenv("DMP_EMAIL")
+	password       = os.Getenv("DMP_PASSWORD")
+	userCode       = os.Getenv("DMP_PASSCODE")
+	panel          = os.Getenv("DMP_PANEL")
 	panelSecondary = os.Getenv("DMP_PANEL_SECONDARY")
 )
-
 
 func main() {
 	gqlConfig, err := loadGraphQLConfig()

@@ -11,15 +11,15 @@ const (
 )
 
 type Door struct {
-	Number string `json:"number"`
-	Name string `json:"name"`
-	Panel string
+	Number    string `json:"number"`
+	Name      string `json:"name"`
+	Panel     string
 	AuthToken string
 }
 
 type DoorRequest struct {
 	Status string `json:"status"`
-	Type string `json:"type"`
+	Type   string `json:"type"`
 }
 
 func (door *Door) Access() {
@@ -33,7 +33,7 @@ func (door *Door) Access() {
 		SetResult(&job).
 		SetBody(DoorRequest{
 			Status: "ACCESS",
-			Type: "door",
+			Type:   "door",
 		}).
 		Post(url)
 	if err != nil {
@@ -52,7 +52,7 @@ func (door *Door) Unlock() {
 		SetResult(&job).
 		SetBody(DoorRequest{
 			Status: "UNLOCK",
-			Type: "door",
+			Type:   "door",
 		}).
 		Post(url)
 	if err != nil {
@@ -71,7 +71,7 @@ func (door *Door) Lock() {
 		SetResult(&job).
 		SetBody(DoorRequest{
 			Status: "LOCK",
-			Type: "door",
+			Type:   "door",
 		}).
 		Post(url)
 	if err != nil {
@@ -85,7 +85,7 @@ func GetDoors(authToken string, userCode string, panel string, panelSecondary st
 
 	url := fmt.Sprintf("%s/v2/panels/%s/doors?page=1&page_size=100&auth_token=%s&auth_user_code=%s", endpoint, panel, authToken, userCode)
 
-	var deviceinfo []struct{
+	var deviceinfo []struct {
 		Door Door `json:"device_information"`
 	}
 
@@ -99,7 +99,7 @@ func GetDoors(authToken string, userCode string, panel string, panelSecondary st
 
 	var doors []Door
 	for _, device := range deviceinfo {
-		device.Door.Panel = otherPanel
+		device.Door.Panel = panelSecondary
 		device.Door.AuthToken = authToken
 		doors = append(doors, device.Door)
 	}
