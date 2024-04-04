@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	query "github.com/NotM32/godmp/queries"
-	"github.com/NotM32/godmp/cmd"
+	query "github.com/NotM32/keypadgo/queries"
+	"github.com/NotM32/keypadgo/cmd"
 )
 
 var (
@@ -17,7 +17,7 @@ var (
 )
 
 func main() {
-	gqlConfig, err := loadGraphQLConfig()
+	gqlConfig, err := LoadGraphQLConfig()
 	if err != nil {
 		fmt.Println("Error reading GraphQLConfig: ", err)
 		panic(err)

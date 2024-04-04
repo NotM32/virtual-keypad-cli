@@ -1,4 +1,4 @@
-module github.com/NotM32/godmp
+module github.com/NotM32/keypadgo
 
 go 1.22.1
 

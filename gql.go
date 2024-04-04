@@ -21,7 +21,7 @@ type GraphQLConfig struct {
 	} `json:"extensions"`
 }
 
-func loadGraphQLConfig() (GraphQLConfig, error) {
+func LoadGraphQLConfig() (GraphQLConfig, error) {
 	var gqlConfig GraphQLConfig
 
 	gqlConfigFile, err := os.Open(".graphqlconfig")
