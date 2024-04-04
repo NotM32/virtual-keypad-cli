@@ -1,0 +1,60 @@
+query bulkUserCodeImportContextInitialSnapshotsQuery(
+  $customerId: ID!
+  $includedStatuses: BulkUserCodeImportStatusesIncludedStatusTypes
+) {
+  bulkUserCodeImportStatuses(
+    customerId: $customerId
+    includedStatuses: $includedStatuses
+  ) {
+    __typename
+    id
+    percent
+    filename
+    status
+    total
+    error {
+      __typename
+      reason
+      ... on BulkUserCodeImportErrorBecauseInvalidName {
+        row
+      }
+      ... on BulkUserCodeImportErrorBecauseInvalidInternalCode {
+        row
+      }
+      ... on BulkUserCodeImportErrorBecauseDuplicateCode {
+        row
+      }
+      ... on BulkUserCodeImportErrorBecauseInvalidLevel {
+        row
+      }
+      ... on BulkUserCodeImportErrorBecauseInvalidAreas {
+        row
+      }
+      ... on BulkUserCodeImportErrorBecauseInvalidProfiles {
+        row
+      }
+    }
+    successes {
+      name
+    }
+    failures {
+      row
+      name
+      credential
+      internalNumber
+      reason
+    }
+    ... on BulkUserCodeImportSystemSnapshot {
+      system {
+        name
+        id
+      }
+    }
+    ... on BulkUserCodeImportSiteSnapshot {
+      site {
+        name
+        id
+      }
+    }
+  }
+}

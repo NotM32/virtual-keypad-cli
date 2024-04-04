@@ -1,0 +1,59 @@
+mutation LoginForm_AuthenticateMutation(
+  $email: String!
+  $PW: String!
+  $clientApplication: ClientApplication!
+  $forceSendToEmail: Boolean
+) {
+  authenticate(
+    email: $email
+    password: $PW
+    clientApplication: $clientApplication
+    forceSendToEmail: $forceSendToEmail
+  ) {
+    __typename
+    ... on AuthenticateSuccessResponse {
+      __typename
+      users(accessibleType: [DEALER, SUPERVISOR]) {
+        authToken
+        user {
+          id
+          accessible_type: accessibleType
+          email
+          __typename
+          ... on CustomerUser {
+            customerRole: role
+          }
+          ... on DealerUser {
+            dealerRole: role
+            dealer {
+              databaseId
+              id
+            }
+          }
+          ... on SupervisorUser {
+            supervisorRole: role
+          }
+        }
+      }
+    }
+    ... on AuthenticateTwoFactorSetupRequiredResponse {
+      token
+      __typename
+    }
+    ... on AuthenticateWithTwoFactorCodeRequiredResponse {
+      uuid
+      sanitizedContactInfo
+      validationMethod
+      __typename
+    }
+    ... on AuthenticateErrorResponse {
+      __typename
+      error {
+        __typename
+        ... on InvalidLoginCredentialsError {
+          type
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,216 @@
+query eventsPageReducersAndContextsHistoryQuery(
+  $systemId: ID!
+  $pageNumber: Int
+  $pageSize: Int
+  $personDetected: Boolean
+  $animalDetected: Boolean
+  $vehicleDetected: Boolean
+  $subcategoryIds: [SupportedEventSubcategoryName]
+  $cameraNumbers: [Int]
+  $doorNumbers: [String]
+  $startDate: String
+  $endDate: String
+  $searchText: String
+) {
+  node(id: $systemId) {
+    __typename
+    id
+    ... on ControlSystem {
+      thirdPartyVideoEnabled
+      varEnabled
+      servicesManager {
+        eagleEyeEnabled
+        openEyeEnabled
+      }
+      allCameras {
+        __typename
+        ... on ScapiCamera {
+          id
+          __typename
+          deviceType
+          cameraName
+          databaseDeviceId
+          databaseCameraId
+        }
+        ... on VsCamera {
+          id
+          __typename
+          deviceType
+          cameraName
+          databaseDeviceId
+          databaseCameraId
+        }
+        ... on CamectCamera {
+          id
+          __typename
+          deviceType
+          cameraName
+          databaseDeviceId
+          databaseCameraId
+          cameraId
+          deviceId
+        }
+        id
+      }
+      combinedHistoryConnection(
+        pageNumber: $pageNumber
+        pageSize: $pageSize
+        personDetected: $personDetected
+        animalDetected: $animalDetected
+        vehicleDetected: $vehicleDetected
+        subcategoryIds: $subcategoryIds
+        cameraNumbers: $cameraNumbers
+        doorNumbers: $doorNumbers
+        startDate: $startDate
+        endDate: $endDate
+        searchText: $searchText
+      ) {
+        edges {
+          node {
+            id
+            createdAt
+            eventAt
+            eventSource
+            message
+            subcategory
+            cameraNumber
+            photo
+            panelId
+            personId
+            clientEventId
+            wealth {
+              eventStreamUrl
+              camectHubId
+              camectCameraId
+              cameraName
+              videoUrl
+              endTsMs
+              startTsMs
+              cameraTimezone
+            }
+            personDetected
+            animalDetected
+            vehicleDetected
+            CorrelatedEvents {
+              __typename
+              id
+              createdAt
+              eventAt
+              eventSource
+              message
+              eventCorrelationId
+              category
+              subcategory
+              cameraNumber
+              panelTime
+              photo
+              panelId
+              wealth {
+                eventStreamUrl
+                camectHubId
+                camectCameraId
+                cameraName
+                videoUrl
+                endTsMs
+                startTsMs
+                cameraTimezone
+              }
+              personDetected
+              animalDetected
+              vehicleDetected
+            }
+          }
+        }
+      }
+      ...eventsPageReducersAndContextsHistoryFragment_controlSystem
+      doorsConnection {
+        nodes {
+          name
+          deviceNumber
+          id
+        }
+      }
+    }
+  }
+}
+fragment eventsPageReducersAndContextsHistoryFragment_controlSystem on ControlSystem {
+  id
+  combinedHistoryConnection(
+    pageNumber: $pageNumber
+    pageSize: $pageSize
+    personDetected: $personDetected
+    animalDetected: $animalDetected
+    vehicleDetected: $vehicleDetected
+    subcategoryIds: $subcategoryIds
+    cameraNumbers: $cameraNumbers
+    doorNumbers: $doorNumbers
+    startDate: $startDate
+    endDate: $endDate
+    searchText: $searchText
+  ) {
+    edges {
+      cursor
+      node {
+        id
+        createdAt
+        eventAt
+        eventSource
+        message
+        subcategory
+        cameraNumber
+        photo
+        panelId
+        personId
+        clientEventId
+        wealth {
+          eventStreamUrl
+          camectHubId
+          camectCameraId
+          cameraName
+          videoUrl
+          endTsMs
+          startTsMs
+          cameraTimezone
+        }
+        personDetected
+        animalDetected
+        vehicleDetected
+        CorrelatedEvents {
+          __typename
+          id
+          createdAt
+          eventAt
+          eventSource
+          message
+          eventCorrelationId
+          cameraNumber
+          category
+          subcategory
+          panelTime
+          photo
+          panelId
+          wealth {
+            eventStreamUrl
+            camectHubId
+            camectCameraId
+            cameraName
+            videoUrl
+            endTsMs
+            startTsMs
+            cameraTimezone
+          }
+          personDetected
+          animalDetected
+          vehicleDetected
+        }
+      }
+    }
+    totalCount
+    pageInfo {
+      endCursor
+      hasNextPage
+      hasPreviousPage
+      startCursor
+    }
+  }
+}
