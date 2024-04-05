@@ -22,6 +22,7 @@ type DoorRequest struct {
 	Type   string `json:"type"`
 }
 
+// Access method triggers the access funciton for the door and opens the strike for the duration
 func (door *Door) Access() {
 	client := resty.New()
 
@@ -41,6 +42,7 @@ func (door *Door) Access() {
 	}
 }
 
+// Unlock method forces the door to stay unlocked until relocked
 func (door *Door) Unlock() {
 	client := resty.New()
 
@@ -60,6 +62,7 @@ func (door *Door) Unlock() {
 	}
 }
 
+// Lock method forces locks the door
 func (door *Door) Lock() {
 	client := resty.New()
 
