@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"slices"
 
-	query "github.com/NotM32/keypadgo/queries"
+	query "github.com/NotM32/virtual-keypad-cli/queries"
 	"github.com/spf13/cobra"
 )
 

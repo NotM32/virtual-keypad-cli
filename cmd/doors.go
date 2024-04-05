@@ -7,7 +7,7 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
-	query "github.com/NotM32/keypadgo/queries"
+	query "github.com/NotM32/virtual-keypad-cli/queries"
 )
 
 // doorsCmd represents the doors command

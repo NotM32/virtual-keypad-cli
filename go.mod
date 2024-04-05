@@ -1,4 +1,4 @@
-module github.com/NotM32/keypadgo
+module github.com/NotM32/virtual-keypad-cli
 
 go 1.22.1
 
